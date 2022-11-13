@@ -70,7 +70,7 @@ if (isset($_POST['naslov']) && isset($_POST['sadrzaj'])) {
         echo "<h4>Popunite sva polja!</h4>";
     }
 }
-//Update.php - Collect Data
+//Prikupljanje podataka za azuriranje
 
 function update_get()
 {

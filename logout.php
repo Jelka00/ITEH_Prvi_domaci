@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-
+//Gasenje trenutne sesije korisnika prilikom logout-a
 require 'login_functions.php';
 $_SESSION = [];
 session_unset();

@@ -2,10 +2,6 @@
 include('header.php');
 require 'login_functions.php';
 
-/*if (!empty($_SESSION["id"])) {
-    header("Location: index.php");
-}*/
-
 $login = new Login();
 
 if (isset($_POST["submit"])) {
@@ -24,6 +20,7 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
+<!--HTML kod za login stranicu-->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
