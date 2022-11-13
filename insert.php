@@ -21,6 +21,8 @@ include ('header.php');
             </form>
 
             <hr>
+            <!-- Vraca objave koje mozemo obrisati-->
+            <?php get_all_edit_data()?>
         </div>
     </div>
 </div>

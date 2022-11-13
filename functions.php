@@ -19,7 +19,7 @@ function get_all_data()
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
                 <div class="card-body">
-                    <h4 class=""><a class="text-secondary" href="single.php?id=' . $row['id_objave'] . '">' . $row['naslov'] . '</a></h4>
+                    <h4 class=""><a class="text-secondary" href="single.php?id_objave=' . $row['id_objave'] . '">' . $row['naslov'] . '</a></h4>
                      <p class="card-text">' . htmlspecialchars_decode(substr($row['sadrzaj'], 0, 100)) . '...</p>
                     <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
@@ -72,41 +72,83 @@ if (isset($_POST['naslov']) && isset($_POST['sadrzaj'])) {
 }
 //Update.php - Collect Data
 
-function update_get(){
-    if(isset($_GET['id']) && is_numeric($_GET['id'])){
+function update_get()
+{
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         global $conn;
         $id = $_GET['id'];
-        $get_id = mysqli_query($conn,"SELECT * FROM objave WHERE id_objave='$id'");
-            if(mysqli_num_rows($get_id) === 1){
-                $row = mysqli_fetch_assoc($get_id);
-                return($row);
-            }
-        } 
+        $get_id = mysqli_query($conn, "SELECT * FROM objave WHERE id_objave='$id'");
+        if (mysqli_num_rows($get_id) === 1) {
+            $row = mysqli_fetch_assoc($get_id);
+            return ($row);
+        }
     }
-    //Azuriranje objave
-    
-    if(isset($_POST['update_title']) && isset($_POST['update_content'])){
-    
+}
+//Azuriranje objave
+
+if (isset($_POST['update_title']) && isset($_POST['update_content'])) {
+
     //Provera da li je naslov ili sadrzaj prazan
-    
-    if(!empty($_POST['update_title']) && !empty($_POST['update_content'])){
-    
+
+    if (!empty($_POST['update_title']) && !empty($_POST['update_content'])) {
+
         // Sigurnosna provera
-    
+
         $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST['update_title']));
         $content = mysqli_real_escape_string($conn, htmlspecialchars($_POST['update_content']));
-    
+
         $id = $_GET['id'];
-                            
-        $update_query = mysqli_query($conn,"UPDATE objave SET naslov='$title',sadrzaj='$content' WHERE id_objave=$id");
-    
-        if($update_query){
+
+        $update_query = mysqli_query($conn, "UPDATE objave SET naslov='$title',sadrzaj='$content' WHERE id_objave=$id");
+
+        if ($update_query) {
             echo "<script>alert('Objava azurirana!');window.location.href = 'index.php';</script>";
             exit;
-        }else{
+        } else {
             echo "<h3>Neuspesno azuriranje objave!</h3>";
         }
-    }else{
+    } else {
         echo "<h4>Popunite sva neophodna polja!</h4>";
+    }
+}
+function delete(){
+    global $conn;
+    if(isset($_GET['id_objave']) && is_numeric($_GET['id_objave'])){
+        
+        $userid = $_GET['id_objave'];
+        $delete_user = mysqli_query($conn,"DELETE FROM objave WHERE id_objave='$userid'");
+        
+        if($delete_user){
+            echo "<script>alert('Objava obrisana!');window.location.href = 'insert.php';</script>";
+            exit;
+            
+        }else{
+        echo "Objavu nije moguce obrisati!"; 
         }
     }
+}
+//Funkcija za povlacenje i stampanje polja za brisanje objave
+function get_all_edit_data(){
+    global $conn;
+    $get_data = mysqli_query($conn,"SELECT * FROM objave");
+    if(mysqli_num_rows($get_data) > 0){
+        echo '<table>
+              <tr>
+                <th><h2>Izmeni podatke</h2></th>
+              </tr>';
+        while($row = mysqli_fetch_assoc($get_data)){
+           
+            echo '<tr>
+            <td>'.$row['naslov'].'</td>
+            <td>
+            <a href="update.php?id_objave='.$row['id_objave'].'">Izmeni</a> |
+            <a href="delete.php?id_objave='.$row['id_objave'].'">Obrisi</a>
+            </td>
+            </tr>';
+
+        }
+        echo '</table>';
+    }else{
+        echo "<h3>Dodajte jos objava!</h3>";
+    }
+}
