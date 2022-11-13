@@ -60,7 +60,7 @@ if (isset($_POST['naslov']) && isset($_POST['sadrzaj'])) {
 
             //Provera da li su podaci ubaceni
             if ($insert_query) {
-                echo "<script>alert('Podaci ubaceni!');window.location.href = 'index.php';</script>";
+                echo "<script>alert('Podaci ubaceni!');window.location.href = 'posts.php';</script>";
                 exit;
             } else {
                 echo "<h3>Podaci nisu ubaceni!</h3>";
@@ -102,7 +102,7 @@ if (isset($_POST['update_title']) && isset($_POST['update_content'])) {
         $update_query = mysqli_query($conn, "UPDATE objave SET naslov='$title',sadrzaj='$content' WHERE id_objave=$id");
 
         if ($update_query) {
-            echo "<script>alert('Objava azurirana!');window.location.href = 'index.php';</script>";
+            echo "<script>alert('Objava azurirana!');window.location.href = 'posts.php';</script>";
             exit;
         } else {
             echo "<h3>Neuspesno azuriranje objave!</h3>";
