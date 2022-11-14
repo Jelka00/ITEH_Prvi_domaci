@@ -39,6 +39,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="logout.php">Izloguj se</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="skiTrack.php">Ski staze na Kopaoniku</a>
+      </li>
     </ul>
   </div>
 </nav>
