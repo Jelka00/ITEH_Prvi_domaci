@@ -111,44 +111,63 @@ if (isset($_POST['update_title']) && isset($_POST['update_content'])) {
         echo "<h4>Popunite sva neophodna polja!</h4>";
     }
 }
-function delete(){
+function delete()
+{
     global $conn;
-    if(isset($_GET['id_objave']) && is_numeric($_GET['id_objave'])){
-        
+    if (isset($_GET['id_objave']) && is_numeric($_GET['id_objave'])) {
+
         $userid = $_GET['id_objave'];
-        $delete_user = mysqli_query($conn,"DELETE FROM objave WHERE id_objave='$userid'");
-        
-        if($delete_user){
+        $delete_user = mysqli_query($conn, "DELETE FROM objave WHERE id_objave='$userid'");
+
+        if ($delete_user) {
             echo "<script>alert('Objava obrisana!');window.location.href = 'insert.php';</script>";
             exit;
-            
-        }else{
-        echo "Objavu nije moguce obrisati!"; 
+        } else {
+            echo "Objavu nije moguce obrisati!";
         }
     }
 }
 //Funkcija za povlacenje i stampanje polja za brisanje objave
-function get_all_edit_data(){
+function get_all_edit_data()
+{
     global $conn;
-    $get_data = mysqli_query($conn,"SELECT * FROM objave");
-    if(mysqli_num_rows($get_data) > 0){
+    $get_data = mysqli_query($conn, "SELECT * FROM objave");
+    if (mysqli_num_rows($get_data) > 0) {
         echo '<table>
               <tr>
                 <th><h2>Izmeni podatke</h2></th>
               </tr>';
-        while($row = mysqli_fetch_assoc($get_data)){
-           
+        while ($row = mysqli_fetch_assoc($get_data)) {
+
             echo '<tr>
-            <td>'.$row['naslov'].'</td>
+            <td>' . $row['naslov'] . '</td>
             <td>
-            <a href="update.php?id_objave='.$row['id_objave'].'">Izmeni</a> |
-            <a href="delete.php?id_objave='.$row['id_objave'].'">Obrisi</a>
+            <a href="update.php?id_objave=' . $row['id_objave'] . '">Izmeni</a> |
+            <a href="delete.php?id_objave=' . $row['id_objave'] . '">Obrisi</a>
             </td>
             </tr>';
-
         }
         echo '</table>';
-    }else{
+    } else {
+        echo "<h3>Dodajte jos objava!</h3>";
+    }
+}
+function getTrackDescription($name)
+{
+    global $conn;
+    $get_data = mysqli_query($conn, "SELECT * FROM staze WHERE naziv_staze='$name'");
+    if (mysqli_num_rows($get_data) > 0) {
+        echo '<table>
+              <tr>
+                <th><h2>Opis staze</h2></th>
+              </tr>';
+        while ($row = mysqli_fetch_assoc($get_data)) {
+
+            echo '<tr>
+            <td>' . $row['opis_staze'] . '</td>
+            </tr>';
+        }
+    } else {
         echo "<h3>Dodajte jos objava!</h3>";
     }
 }
