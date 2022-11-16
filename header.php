@@ -47,6 +47,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="trackMap.php">Opis staza</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="insertTrack.php">Unesite novu stazu</a>
+        </li>
       </ul>
     </div>
   </nav>
