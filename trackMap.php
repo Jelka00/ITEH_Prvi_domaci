@@ -1,6 +1,6 @@
 <!--Prikazivanje inputa i slanje istog na dalju obradu za prikaz opisa staze-->
 <?php
-include('header.php');
+include('header&footer/header.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,5 +36,5 @@ include('header.php');
 </body>
 
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

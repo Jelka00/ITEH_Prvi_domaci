@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 require_once 'functions.php';
 ?>
 
@@ -168,5 +168,5 @@ Licence URI: http://www.os-templates.com/template-terms
 </body>
 </html>
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

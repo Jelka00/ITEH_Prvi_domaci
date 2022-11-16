@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 require 'login_functions.php';
 
 $login = new Login();
@@ -50,5 +50,5 @@ if (isset($_POST["submit"])) {
 
 </html>
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

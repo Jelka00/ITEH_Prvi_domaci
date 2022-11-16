@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 require_once 'functions.php';
 ?>
 <div class="album py-5 bg-light">
@@ -10,5 +10,5 @@ require_once 'functions.php';
         </div>
       </div>
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

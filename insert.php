@@ -1,7 +1,7 @@
 <!-- Formatiranje stranice za unos novih blog postova pomocu Bootstrap-a PHP_SELF vraca podatke o skripti koja se trenutno izvrsava-->
 <?php
 require_once 'functions.php';
-include ('header.php');
+include ('header&footer/header.php');
 ?>
 <div class="container">
     <div class="row">
@@ -28,5 +28,5 @@ include ('header.php');
 </div>
 
 <?php
-include ('footer.php');
+include ('header&footer/footer.php');
 ?>

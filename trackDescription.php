@@ -1,5 +1,5 @@
 <?php
-include ('header.php');
+include ('header&footer/header.php');
 require 'connection.php';
 global $conn;
 $name = $_GET["name"];
@@ -22,5 +22,5 @@ if (mysqli_num_rows($get_data) > 0) {
 <a href="trackMap.php">Vrati se na pretragu</a>
 </div>';
 
-include ('footer.php');
+include ('header&footer/footer.php');
 ?>

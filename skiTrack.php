@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 require_once 'functions.php';
 ?>
 <!DOCTYPE html>
@@ -40,5 +40,5 @@ require_once 'functions.php';
 
 
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

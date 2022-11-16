@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 //Gasenje trenutne sesije korisnika prilikom logout-a
 require 'login_functions.php';
 $_SESSION = [];
@@ -10,5 +10,5 @@ echo
 "<script> alert('Izlogovali ste se sa naloga!'); </script>";
 ?>
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>

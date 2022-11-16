@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('header&footer/header.php');
 require_once 'insertTrackFunction.php';
 ?>
 <!DOCTYPE html>
@@ -42,5 +42,5 @@ require_once 'insertTrackFunction.php';
 
 
 <?php
-include('footer.php');
+include('header&footer/footer.php');
 ?>
