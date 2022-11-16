@@ -1,4 +1,4 @@
-<!-- Formatiranje stranice za unos novih blog postova pomocu Bootstrap-a -->
+<!-- Formatiranje stranice za unos novih blog postova pomocu Bootstrap-a PHP_SELF vraca podatke o skripti koja se trenutno izvrsava-->
 <?php
 require_once 'functions.php';
 include ('header.php');
