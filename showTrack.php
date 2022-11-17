@@ -5,10 +5,11 @@ if (!isset($_GET["id"])) {
     $helperVar = $_GET["id"];
     //Uspostavljanje konekcije
     include "connection.php";
+    require_once 'model/staze.php';
+    $staze = new Staze();
     //Citanje podataka o stazi
-    $sql = "SELECT * FROM staze WHERE id_staze='" . $helperVar . "'";
+    $result = $staze->getStazaByID($conn, $helperVar);
 
-    $result = $conn->query($sql);
     //Ispis naziva kolona u tabeli
     echo "<table border='1'>
 <tr>
@@ -16,7 +17,7 @@ if (!isset($_GET["id"])) {
 <th>Duzina staze</th>
 <th>Kategorija staze</th>
 </tr>";
-    //Ispis podataka o zemlji
+    //Ispis podataka o stazi
     while ($row = $result->fetch_object()) {
         echo "<tr>";
         echo "<td>" . $row->naziv_staze . "</td>";

@@ -7,7 +7,7 @@ include('header&footer/header.php');
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="suggest.js" type="text/javascript"></script>
+    <script src="JS/suggest.js" type="text/javascript"></script>
     <script type="text/javascript">
         function place(ele) {
             document.getElementById('txt').value = ele.innerHTML;

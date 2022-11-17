@@ -50,6 +50,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="insertTrack.php">Unesite novu stazu</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="insertSkipas.php">Unesite novi skipas</a>
+        </li>
       </ul>
     </div>
   </nav>

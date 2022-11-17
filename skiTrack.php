@@ -7,7 +7,7 @@ require_once 'functions.php';
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="findTrack.js"></script>
+    <script type="text/javascript" src="JS/findTrack.js"></script>
 </head>
 
 <body>

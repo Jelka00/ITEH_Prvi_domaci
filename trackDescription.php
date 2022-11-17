@@ -1,9 +1,11 @@
 <?php
 include ('header&footer/header.php');
 require 'connection.php';
+require_once 'model/staze.php';
+$staze = new Staze();
 global $conn;
 $name = $_GET["name"];
-$get_data = mysqli_query($conn, "SELECT * FROM staze WHERE naziv_staze='$name'");
+$get_data = $staze->getStaza($conn, $name);
 if (mysqli_num_rows($get_data) > 0) {
     echo '<table>
               <tr>

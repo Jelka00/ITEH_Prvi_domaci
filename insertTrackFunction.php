@@ -1,7 +1,8 @@
 <?php
 //Unos podataka o stazi u bazu kroz AJAX validaciju naziva
 require 'connection.php';
-
+require_once 'model/staze.php';
+$staze = new Staze();
 if (isset($_POST['naziv_staze'])) {
 
     // Provera da li je naslov ili sadrzaj prazan
@@ -14,7 +15,8 @@ if (isset($_POST['naziv_staze'])) {
         $description = mysqli_real_escape_string($conn, htmlspecialchars($_POST['opis_staze']));
 
         // Ubacivanje podataka u bazu
-        $insert_query = mysqli_query($conn, "INSERT INTO staze(naziv_staze,duzina_staze,kategorija,opis_staze) VALUES('$track_name','$track_length','$category','$description')");
+        $insert_query = $staze->add($conn, $track_name, $track_length, $category, $description);
+        //$insert_query = mysqli_query($conn, "INSERT INTO staze(naziv_staze,duzina_staze,kategorija,opis_staze) VALUES('$track_name','$track_length','$category','$description')");
 
         //Provera da li su podaci ubaceni
         if ($insert_query) {

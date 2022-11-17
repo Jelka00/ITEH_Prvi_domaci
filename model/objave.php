@@ -10,36 +10,32 @@ class Objave
     public function add(mysqli $conn, $sadrzaj, $naslov)
     {
         mysqli_query($conn, "INSERT INTO objave(sadrzaj,naslov) VALUES ('$sadrzaj','$naslov')");
+        return 1;
     }
 
-    public function update(mysqli $conn, $ime_prezime, $korisnicko_ime, $email, $lozinka)
+    public function update(mysqli $conn, $id_objave, $sadrzaj, $naslov)
     {
-        mysqli_query($conn, "UPDATE skijasi set ime_prezime = '$this->ime_prezime',korisnicko_ime = '$this->korisnicko_ime',
-                email = '$this->email', lozinka = '$this->lozinka'  WHERE id_korisnika='$this->id_korisnika'");
+        mysqli_query($conn, "UPDATE objave set sadrzaj = '$sadrzaj',naslov = '$naslov' WHERE id_objave = '$id_objave'");
+        return 1;
     }
 
-    public function delete(mysqli $conn, $id_korisnika)
+    public function delete(mysqli $conn, $id_objave)
     {
-       mysqli_query($conn, "DELETE FROM skijasi WHERE id_korisnika='$id_korisnika'");
+       mysqli_query($conn, "DELETE FROM objave WHERE id_objave='$id_objave'");
+       return 1;
     }
 
     public static function getAll(mysqli $conn)
     {
-        mysqli_query($conn, "SELECT * FROM skijasi");
+        $result = mysqli_query($conn, "SELECT * FROM objave");
+        return $result;
     }
 
 
-    public static function getKorisnik($naziv_staze, mysqli $conn)
+    public static function getObjava($id_objave, mysqli $conn)
     {
-        $query = "SELECT * FROM staze WHERE id_staze='$naziv_staze'";
+        $result = mysqli_query($conn, "SELECT * FROM objave WHERE id_objave='$id_objave'");
 
-        $staze = array();
-        if ($obj = $conn->query($query)) {
-            while ($row = $obj->fetch_array(1)) {
-                $predstava[] = $row;
-            }
-        }
-
-        return $staze;
+        return $result;
     }
 }

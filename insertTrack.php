@@ -8,7 +8,7 @@ require_once 'insertTrackFunction.php';
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Validacija forme</title>
-    <script type="text/javascript" src="check.js"></script>
+    <script type="text/javascript" src="JS/check.js"></script>
 </head>
 
 <body>

@@ -1,12 +1,20 @@
 <!--Povezivanje sa bazom-->
 <?php
 require 'connection.php';
-
+require_once 'model/objave.php';
+require_once 'model/skijasi.php';
+require_once 'model/staze.php';
+$staze = new Staze();
+$skijasi = new Skijasi();
+$objave = new Objave();
 function get_all_data()
 {
+    require_once 'model/objave.php';
+    $objave = new Objave();
     //Povlacenje svih podataka iz baze
     global $conn;
-    $result = mysqli_query($conn, "SELECT * FROM objave");
+    $result = $objave->getAll($conn);
+    //$result = mysqli_query($conn, "SELECT * FROM objave");
 
     if (mysqli_num_rows($result) > 0) {
 
@@ -56,7 +64,7 @@ if (isset($_POST['naslov']) && isset($_POST['sadrzaj'])) {
         } else {
 
             // Ubacivanje podataka u bazu
-            $insert_query = mysqli_query($conn, "INSERT INTO objave(naslov,sadrzaj) VALUES('$title','$content')");
+            $insert_query = $objave->add($conn, $content, $title);
 
             //Provera da li su podaci ubaceni
             if ($insert_query) {
@@ -74,10 +82,12 @@ if (isset($_POST['naslov']) && isset($_POST['sadrzaj'])) {
 
 function update_get()
 {
+    require_once 'model/objave.php';
+    $objave = new Objave();
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         global $conn;
         $id = $_GET['id'];
-        $get_id = mysqli_query($conn, "SELECT * FROM objave WHERE id_objave='$id'");
+        $get_id = $objave->getObjava($id, $conn);
         if (mysqli_num_rows($get_id) === 1) {
             $row = mysqli_fetch_assoc($get_id);
             return ($row);
@@ -99,7 +109,8 @@ if (isset($_POST['update_title']) && isset($_POST['update_content'])) {
 
         $id = $_GET['id'];
 
-        $update_query = mysqli_query($conn, "UPDATE objave SET naslov='$title',sadrzaj='$content' WHERE id_objave=$id");
+        $update_query = $objave->update($conn, $id, $content, $title);
+        //$update_query = mysqli_query($conn, "UPDATE objave SET naslov='$title',sadrzaj='$content' WHERE id_objave=$id");
 
         if ($update_query) {
             echo "<script>alert('Objava azurirana!');window.location.href = 'posts.php';</script>";
@@ -113,13 +124,16 @@ if (isset($_POST['update_title']) && isset($_POST['update_content'])) {
 }
 function delete()
 {
+    require_once("model/objave.php");
+    $objave = new Objave();
     global $conn;
     if (isset($_GET['id_objave']) && is_numeric($_GET['id_objave'])) {
 
-        $userid = $_GET['id_objave'];
-        $delete_user = mysqli_query($conn, "DELETE FROM objave WHERE id_objave='$userid'");
+        $id_objave = $_GET['id_objave'];
+        $delete_post = $objave->delete($conn, $id_objave);
+        //$delete_user = mysqli_query($conn, "DELETE FROM objave WHERE id_objave='$userid'");
 
-        if ($delete_user) {
+        if ($delete_post) {
             echo "<script>alert('Objava obrisana!');window.location.href = 'insert.php';</script>";
             exit;
         } else {
@@ -130,8 +144,10 @@ function delete()
 //Funkcija za povlacenje i stampanje polja za brisanje objave
 function get_all_edit_data()
 {
+    require_once("model/objave.php");
+    $objave = new Objave();
     global $conn;
-    $get_data = mysqli_query($conn, "SELECT * FROM objave");
+    $get_data = $objave->getAll($conn);
     if (mysqli_num_rows($get_data) > 0) {
         echo '<table>
               <tr>
@@ -154,8 +170,11 @@ function get_all_edit_data()
 }
 function getTrackDescription($name)
 {
+    require_once 'model/staze.php';
+    $staze = new Staze();
     global $conn;
-    $get_data = mysqli_query($conn, "SELECT * FROM staze WHERE naziv_staze='$name'");
+    $get_data = $staze->getStaza($conn, $name);
+    //$get_data = mysqli_query($conn, "SELECT * FROM staze WHERE naziv_staze='$name'");
     if (mysqli_num_rows($get_data) > 0) {
         echo '<table>
               <tr>
@@ -171,29 +190,33 @@ function getTrackDescription($name)
         echo "<h3>Dodajte jos objava!</h3>";
     }
 }
-function insertSkiTrack(){
+function insertSkiTrack()
+{
+    require_once 'model/staze.php';
+    $staze = new Staze();
     global $conn;
     if (isset($_POST['naziv_staze'])) {
 
         // Provera da li je naslov ili sadrzaj prazan
         if (!empty($_POST['naziv_staze'])) {
-    
+
             // Sigurnosna provera da nije neki html
             $track_name = mysqli_real_escape_string($conn, htmlspecialchars($_POST['naziv_staze']));
             $track_length = mysqli_real_escape_string($conn, htmlspecialchars($_POST['sadrzaj']));
             $category = mysqli_real_escape_string($conn, htmlspecialchars($_POST['sadrzaj']));
             $description = mysqli_real_escape_string($conn, htmlspecialchars($_POST['sadrzaj']));
-    
+
             // Provera da li naslov postoji
             $check_content = mysqli_query($conn, "SELECT 'naziv_staze' FROM staze WHERE naziv_staze = '$track_name'");
-    
+
             if (mysqli_num_rows($check_content) > 0) {
                 echo "<h3>Ova staza vec postoji!</h3>";
             } else {
-    
+
                 // Ubacivanje podataka u bazu
-                $insert_query = mysqli_query($conn, "INSERT INTO staze(naziv_staze,duzina_staze,kategorija,opis_staze) VALUES('$track_name','$track_length','$category','$description')");
-    
+                $insert_query = $staze->add($conn, $track_name, $track_length, $category, $description);
+                //$insert_query = mysqli_query($conn, "INSERT INTO staze(naziv_staze,duzina_staze,kategorija,opis_staze) VALUES('$track_name','$track_length','$category','$description')");
+
                 //Provera da li su podaci ubaceni
                 if ($insert_query) {
                     echo "<script>alert('Podaci ubaceni!');window.location.href = 'index.php';</script>";
@@ -207,3 +230,4 @@ function insertSkiTrack(){
         }
     }
 }
+?>
