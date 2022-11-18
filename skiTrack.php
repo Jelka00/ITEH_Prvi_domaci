@@ -1,6 +1,8 @@
 <?php
 include('header&footer/header.php');
 require_once 'functions.php';
+require_once 'model/staze.php';
+$staze = new Staze();
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,8 +15,7 @@ require_once 'functions.php';
 <body>
     <?php
     include "connection.php";
-    $sql = "SELECT * FROM staze";
-    $result = $conn->query($sql);
+    $result = $staze->getAll($conn);
     ?>
     <form>
         <b>Izaberi stazu:</b>

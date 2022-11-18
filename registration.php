@@ -1,11 +1,10 @@
 <?php
 include('header&footer/header.php');
 require 'login_functions.php';
-/*if (!empty($_SESSION["id"])) {
+if (!empty($_SESSION["id"])) {
     header("Location: index.php");
-}*/
+}
 $register = new Register();
-
 if (isset($_POST["submit"])) {
     $result = $register->registration($_POST["name"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["confirmpassword"]);
     //Provera parametara unosa
